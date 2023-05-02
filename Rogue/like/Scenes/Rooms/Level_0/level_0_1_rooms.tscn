@@ -1,0 +1,65 @@
+[gd_scene load_steps=8 format=3 uid="uid://dg257xglr3it1"]
+
+[ext_resource type="PackedScene" uid="uid://oiebyf2kpkhp" path="res://Scenes/Rooms/room.tscn" id="1_xhnv7"]
+[ext_resource type="PackedScene" uid="uid://bebtr7316nbue" path="res://Scenes/Rooms/door.tscn" id="2_6vtq0"]
+[ext_resource type="PackedScene" uid="uid://d3rpepvy5ywv7" path="res://Scenes/Furniture/torch.tscn" id="3_pahs7"]
+[ext_resource type="PackedScene" uid="uid://bpsc57phb6oe7" path="res://Scenes/Weapons/war_hammer.tscn" id="4_cfwu0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ph7gh"]
+size = Vector2(31, 32)
+
+[sub_resource type="Shader" id="Shader_j7out"]
+code = "shader_type canvas_item;
+
+uniform bool active = false;
+
+void fragment() {
+	vec4 previous_color = texture(TEXTURE, UV);
+	vec4 white_color = vec4(1.0, 1.0, 1.0, previous_color.a);
+	vec4 new_color = previous_color;
+	if (active == true)
+	{
+		new_color = white_color;
+	}
+	
+	COLOR = new_color;
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tocqv"]
+resource_local_to_scene = true
+shader = SubResource("Shader_j7out")
+shader_parameter/active = false
+
+[node name="Level_0_1_Rooms" instance=ExtResource("1_xhnv7")]
+position = Vector2(-1, 0)
+
+[node name="TileMap" parent="NavigationRegion2D" index="0"]
+layer_0/tile_data = PackedInt32Array(65537, 458752, 5, 65538, 458752, 4, 65542, 458752, 4, 65543, 393216, 5, 65544, 458752, 4, 65545, 458752, 4, 65546, 131072, 0, 65547, 131072, 0, 65548, 524288, 5, 65549, 393216, 5, 65550, 393216, 5, 65536, 262144, 5, 131072, 262144, 5, 196608, 262144, 5, 262144, 262144, 5, 327680, 262144, 5, 393216, 262144, 6, 65551, 196608, 5, 131087, 196608, 5, 196623, 196608, 5, 262159, 196608, 5, 327695, 196608, 5, 393231, 196608, 6, 393222, 196608, 1, 327686, 196608, 1, 262150, 196608, 1, 196614, 196608, 1, 131078, 196608, 1, 131077, 196608, 1, 131076, 196608, 1, 131075, 196608, 1, 131074, 196608, 1, 131073, 196608, 1, 196609, 196608, 1, 262145, 196608, 1, 327681, 196608, 1, 393217, 196608, 1, 393218, 196608, 1, 327682, 196608, 1, 262146, 196608, 1, 196610, 196608, 1, 196611, 196608, 1, 262147, 196608, 1, 327683, 196608, 1, 393219, 196608, 1, 393220, 196608, 1, 327684, 196608, 1, 262148, 196608, 1, 196612, 196608, 1, 196613, 196608, 1, 262149, 196608, 1, 327685, 196608, 1, 393221, 196608, 1, 131079, 196608, 1, 196615, 196608, 1, 262151, 196608, 1, 327687, 196608, 1, 393223, 196608, 1, 393224, 196608, 1, 327688, 196608, 1, 262152, 131072, 1, 196616, 196608, 1, 131080, 196608, 1, 131081, 196608, 1, 196617, 196608, 1, 262153, 196608, 1, 327689, 196608, 1, 393225, 196608, 1, 393226, 196608, 1, 327690, 196608, 1, 262154, 196608, 1, 196618, 196608, 1, 131082, 196608, 1, 131083, 196608, 1, 196619, 196608, 1, 262155, 196608, 1, 327691, 196608, 1, 393227, 196608, 1, 393228, 196608, 1, 327692, 196608, 1, 262156, 196608, 1, 196620, 196608, 1, 131084, 196608, 1, 196621, 196608, 1, 262157, 196608, 1, 327693, 196608, 1, 393229, 196608, 1, 393230, 196608, 1, 327694, 196608, 1, 262158, 196608, 1, 196622, 262144, 3, 131086, 327680, 2, 458756, 262144, 5, 524292, 262144, 5, 589828, 262144, 6, 458763, 196608, 5, 524299, 196608, 5, 589835, 196608, 6, 655366, 262144, 6, 655369, 196608, 6, 458757, 458752, 4, 524293, 196608, 1, 589829, 196608, 1, 589830, 196608, 1, 589831, 196608, 1, 589832, 196608, 1, 589833, 196608, 1, 589834, 196608, 1, 524298, 196608, 1, 524297, 196608, 1, 524296, 196608, 1, 524295, 196608, 1, 524294, 196608, 1, 458758, 458752, 4, 458759, 196608, 1, 458760, 196608, 1, 458761, 458752, 4, 458762, 458752, 4, 655368, 196608, 1, 655367, 196608, 1, 15, 196608, 4, 0, 262144, 4, 1, 131072, 6, 2, 131072, 6, 6, 65536, 7, 7, 131072, 6, 8, 131072, 6, 9, 131072, 6, 10, 131072, 6, 11, 131072, 6, 12, 131072, 6, 13, 131072, 6, 14, 131072, 6, 65539, 458752, 4, 3, 327680, 7, 131085, 131072, 3, 5, 196608, 1, 4, 196608, 1, 65540, 196608, 1, 65541, 196608, 1)
+layer_1/tile_data = PackedInt32Array(196620, 0, 1, 196621, 65536, 1)
+layer_2/tile_data = PackedInt32Array(393217, 131072, 6, 393218, 131072, 6, 393219, 131072, 6, 393220, 131072, 6, 393230, 131072, 6, 393229, 131072, 6, 393228, 131072, 6, 393227, 131072, 6, 589829, 131072, 6, 589830, 327680, 6, 589834, 131072, 6, 589833, 65536, 6, 655367, 131072, 6, 655368, 131072, 6, 393223, 458752, 6, 393224, 524288, 6, 458758, 196608, 0, 458761, 196608, 0, 393221, 131072, 7, 393222, 131072, 7, 393225, 131072, 7, 393226, 131072, 7)
+
+[node name="Door" parent="Doors" index="0" instance=ExtResource("2_6vtq0")]
+position = Vector2(80, 16)
+
+[node name="PlayerPosition" type="Marker2D" parent="." index="5"]
+position = Vector2(128, 143)
+
+[node name="CollisionShape2D" parent="PlayerDetector" index="0"]
+position = Vector2(79.5, 48)
+shape = SubResource("RectangleShape2D_ph7gh")
+
+[node name="Torch" parent="." index="8" instance=ExtResource("3_pahs7")]
+position = Vector2(49, 24)
+
+[node name="Torch2" parent="." index="9" instance=ExtResource("3_pahs7")]
+position = Vector2(217, 24)
+
+[node name="WarHammer" parent="." index="10" instance=ExtResource("4_cfwu0")]
+position = Vector2(177, 48)
+can_on_floor = true
+
+[node name="Sprite2D" parent="WarHammer/Node2D" index="0"]
+material = SubResource("ShaderMaterial_tocqv")
+
+[editable path="WarHammer"]
+[editable path="WarHammer/PlayerDetector"]

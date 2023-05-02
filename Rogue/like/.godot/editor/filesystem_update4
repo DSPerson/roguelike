@@ -1,0 +1,8 @@
+res://Scenes/Player/Player.tscn
+res://Scenes/Weapons/crossbow.gd
+res://Scenes/Enemy/Goblin/goblin.tscn
+res://Scenes/Enemy/Goblin/GobinSMP.gd
+res://addons/imjp94.yafsm/src/StateMachinePlayer.gd
+res://Scenes/Enemy/Goblin/goblinFSM.gd
+res://Scenes/Enemy/Goblin/goblin.gd
+res://Scenes/Character.tscn

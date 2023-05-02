@@ -1,0 +1,91 @@
+[gd_scene load_steps=9 format=3 uid="uid://chongs7b4bknk"]
+
+[ext_resource type="Script" path="res://Scenes/Weapons/Weapon.gd" id="1_3yc77"]
+[ext_resource type="Script" path="res://Scenes/Weapons/WeaponHitBox.gd" id="3_ry50g"]
+[ext_resource type="PackedScene" uid="uid://dgd201nng7cks" path="res://Scenes/Player/player_detector.tscn" id="4_e8ldm"]
+
+[sub_resource type="Shader" id="Shader_j7out"]
+code = "shader_type canvas_item;
+
+uniform bool active = false;
+
+void fragment() {
+	vec4 previous_color = texture(TEXTURE, UV);
+	vec4 white_color = vec4(1.0, 1.0, 1.0, previous_color.a);
+	vec4 new_color = previous_color;
+	if (active == true)
+	{
+		new_color = white_color;
+	}
+	
+	COLOR = new_color;
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3ixnp"]
+resource_local_to_scene = true
+shader = SubResource("Shader_j7out")
+shader_parameter/active = false
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_a2vhm"]
+particle_flag_disable_z = true
+direction = Vector3(1, 2.08165e-12, 2.08165e-12)
+spread = 180.0
+gravity = Vector3(2.08165e-12, 2.08165e-12, 2.08165e-12)
+initial_velocity_min = 10.0
+initial_velocity_max = 20.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+tangential_accel_min = 64.0
+tangential_accel_max = 96.0
+
+[sub_resource type="Animation" id="Animation_4v5y2"]
+resource_name = "cancel_attack"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ma3kg"]
+_data = {
+"cancel_attack": SubResource("Animation_4v5y2")
+}
+
+[node name="Weapon" type="Node2D"]
+script = ExtResource("1_3yc77")
+
+[node name="PlayerDetector" parent="." instance=ExtResource("4_e8ldm")]
+
+[node name="Node2D" type="Node2D" parent="."]
+rotation = -1.5708
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D"]
+material = SubResource("ShaderMaterial_3ixnp")
+position = Vector2(7, 3)
+rotation = -0.785398
+offset = Vector2(5, -4)
+
+[node name="HitBox" type="Area2D" parent="Node2D/Sprite2D"]
+collision_layer = 0
+collision_mask = 20
+script = ExtResource("3_ry50g")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Sprite2D/HitBox"]
+position = Vector2(4.94989, -3.7929)
+rotation = 0.785397
+debug_color = Color(0.944911, 0.192965, 0.354483, 0.419608)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Node2D/Sprite2D"]
+position = Vector2(4.94973, -3.53551)
+emitting = false
+amount = 15
+process_material = SubResource("ParticleProcessMaterial_a2vhm")
+lifetime = 0.6
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ma3kg")
+}
+
+[node name="CoolDownTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[connection signal="area_entered" from="PlayerDetector" to="." method="_on_player_detector_area_entered"]
+[connection signal="body_entered" from="PlayerDetector" to="." method="_on_player_detector_body_entered"]
+[connection signal="timeout" from="CoolDownTimer" to="." method="_on_cool_down_timer_timeout"]

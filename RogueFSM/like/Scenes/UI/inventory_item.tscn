@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://463n4nqmx7jf"]
+
+[ext_resource type="Texture2D" uid="uid://drdmf5pxe3dg2" path="res://Art/all/heroes/knight/spike_club_sheet.png" id="1_p20ct"]
+[ext_resource type="Script" path="res://Scenes/UI/inventory_item.gd" id="2_itk65"]
+
+[node name="InventoryItem" type="TextureRect"]
+clip_contents = true
+custom_minimum_size = Vector2(24, 24)
+offset_right = 24.0
+offset_bottom = 24.0
+texture = ExtResource("1_p20ct")
+expand_mode = 1
+stretch_mode = 5
+script = ExtResource("2_itk65")
+
+[node name="ReferenceRect" type="ReferenceRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+border_color = Color(0.45098, 0.396078, 0.396078, 1)
+border_width = 2.0
+editor_only = false

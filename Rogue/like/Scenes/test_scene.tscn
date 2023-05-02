@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://oxpyt6j867ot"]
+
+[ext_resource type="PackedScene" uid="uid://dxcqn56pbm7m1" path="res://Scenes/Rooms/room_0.tscn" id="1_ky2gp"]
+[ext_resource type="PackedScene" uid="uid://ccsv470i7trvj" path="res://Scenes/Player/Player.tscn" id="2_fg82e"]
+
+[node name="TestScene" type="Node2D"]
+
+[node name="Room_0" parent="." instance=ExtResource("1_ky2gp")]
+enemies_count = 100
+
+[node name="Player" parent="." instance=ExtResource("2_fg82e")]
+position = Vector2(176, 88)

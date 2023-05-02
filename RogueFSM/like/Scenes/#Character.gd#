@@ -1,0 +1,59 @@
+@icon("res://Art/all/heroes/knight/knight_idle_anim_f0.png")
+extends CharacterBody2D
+
+class_name Character
+
+const FRICTION: float = 0.15
+# 加速度
+@export var acceleration: int = 40
+# 最大速度
+@export var max_speed: int = 100
+# 血量
+@export var hp: int = 2 :
+	set(value):
+		hp = value
+		emit_signal("hp_changed", value)
+		
+signal hp_changed(new)
+signal dead
+# 死亡时候被击退的距离 倍数
+@export var deadMultiDistance: float = 1.5
+
+var move_direction: Vector2 = Vector2.ZERO
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+@onready var state_machine: FiniteStateMachine = $FiniteStateMachine
+
+func _ready():
+	pass
+
+func _physics_process(_delta: float) -> void:
+	move_and_slide()
+	velocity = lerp(velocity, Vector2.ZERO, FRICTION)
+ 
+func get_input() -> void:
+	pass
+	
+func move():
+	move_direction = move_direction.normalized()
+	velocity += move_direction * acceleration
+	velocity.x = clamp(velocity.x, -max_speed, max_speed)
+	velocity.y = clamp(velocity.y, -max_speed, max_speed)
+	
+
+func take_damage(damage:int, knockback_direction: Vector2, knockback_force: int):
+	hp -= damage
+	if hp <= 0:
+		state_machine.state = state_machine.states.dead
+		velocity += (knockback_direction * knockback_force * deadMultiDistance)
+		return
+	state_machine.state = state_machine.states.hurt
+#	move_direction = knockback_direction
+#	move()
+	velocity += (knockback_direction * knockback_force)
+#	print(velocity)
+	
+
+func dead_action():
+	call_deferred("emit_signal", "dead")
+	

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dyr8cyvxuy1vg"]
+
+[ext_resource type="PackedScene" uid="uid://bvftlptrcm8ks" path="res://Scenes/Furniture/treasure_box.tscn" id="1_ma1yf"]
+
+[node name="TreasureWeaponBox" instance=ExtResource("1_ma1yf")]
+pick_up_goods = "res://Scenes/Weapons/war_hammer.tscn"

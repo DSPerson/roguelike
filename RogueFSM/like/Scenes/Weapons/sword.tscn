@@ -1,0 +1,71 @@
+[gd_scene load_steps=9 format=3 uid="uid://cbbhmmdngj4rc"]
+
+[ext_resource type="PackedScene" uid="uid://chongs7b4bknk" path="res://Scenes/Weapons/Weapon.tscn" id="1_4mca4"]
+[ext_resource type="Texture2D" uid="uid://dn12p5wb53tjy" path="res://Art/all/heroes/knight/weapon_sword_1.png" id="2_s06mb"]
+[ext_resource type="Texture2D" uid="uid://gwby8ebteaav" path="res://Art/all/effects (new)/slash_effect_anim_spritesheet.png" id="3_n81n2"]
+[ext_resource type="AnimationLibrary" uid="uid://d0u2ej6viv30x" path="res://lll.res" id="4_qs3pk"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_j5aat"]
+radius = 4.0
+height = 16.0
+
+[sub_resource type="Shader" id="Shader_j7out"]
+code = "shader_type canvas_item;
+
+uniform bool active = false;
+
+void fragment() {
+	vec4 previous_color = texture(TEXTURE, UV);
+	vec4 white_color = vec4(1.0, 1.0, 1.0, previous_color.a);
+	vec4 new_color = previous_color;
+	if (active == true)
+	{
+		new_color = white_color;
+	}
+	
+	COLOR = new_color;
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_840lb"]
+resource_local_to_scene = true
+shader = SubResource("Shader_j7out")
+shader_parameter/active = false
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ouwag"]
+radius = 2.18189
+height = 16.3642
+
+[node name="Sword" instance=ExtResource("1_4mca4")]
+
+[node name="CollisionShape2D" parent="PlayerDetector" index="0"]
+position = Vector2(-3, -8)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_j5aat")
+debug_color = Color(0.227451, 0.521569, 0.964706, 0.419608)
+
+[node name="SplashSprite2D" type="Sprite2D" parent="." index="1"]
+visible = false
+position = Vector2(25, 2.08165e-12)
+texture = ExtResource("3_n81n2")
+hframes = 3
+frame = 1
+
+[node name="Sprite2D" parent="Node2D" index="0"]
+material = SubResource("ShaderMaterial_840lb")
+texture = ExtResource("2_s06mb")
+
+[node name="HitBox" parent="Node2D/Sprite2D" index="0"]
+damage = 2
+
+[node name="CollisionShape2D" parent="Node2D/Sprite2D/HitBox" index="0"]
+position = Vector2(4.61323, -3.69289)
+shape = SubResource("CapsuleShape2D_ouwag")
+disabled = true
+
+[node name="AnimationPlayer" parent="." index="3"]
+autoplay = "RESET"
+libraries = {
+"": ExtResource("4_qs3pk")
+}
+
+[editable path="PlayerDetector"]

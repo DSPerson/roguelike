@@ -1,0 +1,71 @@
+[gd_scene load_steps=6 format=3 uid="uid://odxq0ocrnhrk"]
+
+[sub_resource type="Shader" id="Shader_qvc5t"]
+code = "shader_type canvas_item;
+uniform vec3 from_color: source_color;
+uniform vec3 to_color: source_color;
+
+void fragment() {
+	// Place fragment code here
+	vec3 color = vec3(0);
+// sin -1 - 1, abs后 0 - 1,相当于百分比
+	float t = abs(sin(TIME));
+//	float t = sin(TIME);
+// mix 从 a 和 b 以百分比 t的方式过度
+	color = mix(from_color, to_color, t);
+	COLOR = vec4(color, 1.0);
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lrnba"]
+shader = SubResource("Shader_qvc5t")
+shader_parameter/from_color = Color(0.976471, 0, 0, 1)
+shader_parameter/to_color = Color(0, 0, 1, 1)
+
+[sub_resource type="Shader" id="Shader_26f63"]
+code = "shader_type canvas_item;
+uniform vec3 from_color: source_color;
+uniform vec3 to_color: source_color;
+
+void fragment() {
+	// Place fragment code here
+	vec3 color = vec3(0);
+// sin -1 - 1, abs后 0 - 1,相当于百分比
+	float t = abs(sin(TIME));
+//	float t = sin(TIME);
+// mix 从 a 和 b 以百分比 t的方式过度
+	color = mix(from_color, to_color, t);
+	COLOR = vec4(color, 1.0);
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vyxb1"]
+shader = SubResource("Shader_26f63")
+shader_parameter/from_color = Color(1, 0, 0, 1)
+shader_parameter/to_color = Color(0, 0, 1, 1)
+
+[sub_resource type="Environment" id="Environment_jq2if"]
+glow_enabled = true
+glow_bloom = 0.26
+
+[node name="ColorRect" type="Node2D"]
+material = SubResource("ShaderMaterial_lrnba")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_vyxb1")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_jq2if")

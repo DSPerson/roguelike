@@ -1,0 +1,70 @@
+[gd_scene load_steps=9 format=3 uid="uid://du7p3atykt00g"]
+
+[ext_resource type="Script" path="res://Scenes/game.gd" id="1_hvir7"]
+[ext_resource type="PackedScene" uid="uid://ccsv470i7trvj" path="res://Scenes/Player/Player.tscn" id="2_dwk0a"]
+[ext_resource type="PackedScene" uid="uid://byrntwcm6xt2c" path="res://Scenes/UI/mobile_layer.tscn" id="3_45u0c"]
+[ext_resource type="Script" path="res://Scenes/Rooms.gd" id="3_w8b4u"]
+[ext_resource type="Texture2D" uid="uid://bnso2ibhl05tl" path="res://Art/all/19+ icons/swingW.png" id="4_ejg0k"]
+[ext_resource type="PackedScene" uid="uid://2jxohso0ngi3" path="res://Scenes/UI/MainUI.tscn" id="5_f87qb"]
+[ext_resource type="Texture2D" uid="uid://bshl1qle8aiqs" path="res://Art/all/19+ icons/white.png" id="5_qvfd7"]
+[ext_resource type="Script" path="res://Scenes/Weapons/weapon_ui.gd" id="6_or1qq"]
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_hvir7")
+
+[node name="MainUI" parent="." instance=ExtResource("5_f87qb")]
+
+[node name="MobileLayer" parent="MainUI" instance=ExtResource("3_45u0c")]
+visible = false
+
+[node name="Skill" type="Control" parent="MainUI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_or1qq")
+
+[node name="AbilityIcon" type="TextureProgressBar" parent="MainUI/Skill"]
+layout_mode = 0
+offset_left = 384.0
+offset_top = 176.0
+offset_right = 764.0
+offset_bottom = 556.0
+scale = Vector2(0.18, 0.18)
+size_flags_vertical = 0
+fill_mode = 8
+texture_under = ExtResource("4_ejg0k")
+texture_progress = ExtResource("5_qvfd7")
+tint_progress = Color(0.470588, 0.466667, 0.466667, 0.705882)
+
+[node name="PanelContainer" type="PanelContainer" parent="MainUI"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -12.0
+offset_top = -24.0
+offset_right = 12.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Inventory" type="HBoxContainer" parent="MainUI/PanelContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 2
+alignment = 1
+
+[node name="Rooms" type="Node2D" parent="."]
+script = ExtResource("3_w8b4u")
+floor_tile = Vector2i(3, 1)
+left_floor_tile = Vector2i(4, 5)
+right_floor_tile = Vector2i(3, 5)
+
+[node name="Player" parent="." instance=ExtResource("2_dwk0a")]
+position = Vector2(-2, 2)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true

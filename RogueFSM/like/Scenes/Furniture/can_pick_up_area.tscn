@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://ihdmurekncnx"]
+
+[ext_resource type="Script" path="res://Scenes/Furniture/can_pick_up_area.gd" id="1_6jjxn"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_p7vas"]
+radius = 8.0
+height = 16.0
+
+[node name="CanPickupArea" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_6jjxn")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_p7vas")
+debug_color = Color(0.227451, 0.521569, 0.964706, 0.419608)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

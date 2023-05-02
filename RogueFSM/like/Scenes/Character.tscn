@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://h2g5rf8s8v8o"]
+
+[ext_resource type="Script" path="res://Scenes/Character.gd" id="1_ptxoq"]
+[ext_resource type="Script" path="res://addons/imjp94.yafsm/src/StateMachinePlayer.gd" id="3_g2tis"]
+
+[node name="Character" type="CharacterBody2D"]
+script = ExtResource("1_ptxoq")
+
+[node name="StateMachinePlayer" type="Node" parent="."]
+script = ExtResource("3_g2tis")
+update_process_mode = 0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]

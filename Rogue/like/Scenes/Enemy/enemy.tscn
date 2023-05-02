@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://8kqtrr2s7md4"]
+
+[ext_resource type="PackedScene" uid="uid://h2g5rf8s8v8o" path="res://Scenes/Character.tscn" id="1_0de4d"]
+[ext_resource type="Script" path="res://Scenes/Enemy/enemy.gd" id="2_3q82m"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_m1dgh"]
+radius = 6.0
+
+[node name="Enemy" instance=ExtResource("1_0de4d")]
+collision_layer = 0
+motion_mode = 1
+script = ExtResource("2_3q82m")
+debugShowAgent = false
+ready_chase = true
+
+[node name="AnimatedSprite2D" parent="." index="1"]
+autoplay = "default"
+
+[node name="CollisionShape2D" parent="." index="2"]
+shape = SubResource("CircleShape2D_m1dgh")
+disabled = true
+
+[node name="PathTimer" type="Timer" parent="." index="4"]
+wait_time = 0.5
+autostart = true
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." index="5"]
+
+[connection signal="timeout" from="PathTimer" to="." method="_on_path_timer_timeout"]

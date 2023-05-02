@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://cr0uw8wau0vpr"]
+
+[ext_resource type="PackedScene" uid="uid://bpfqbbimmi6cn" path="res://Scenes/Rooms/room_with_weapon.tscn" id="1_omhwq"]
+[ext_resource type="PackedScene" uid="uid://bebtr7316nbue" path="res://Scenes/Rooms/door.tscn" id="2_p4rwl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qx0gc"]
+size = Vector2(32, 10)
+
+[node name="RoomWithWeapon" instance=ExtResource("1_omhwq")]
+
+[node name="TileMap" parent="NavigationRegion2D" index="0"]
+layer_0/tile_data = PackedInt32Array(65536, 262144, 5, 131072, 262144, 5, 196608, 262144, 5, 262144, 262144, 5, 65537, 458752, 4, 65538, 458752, 4, 65541, 458752, 4, 65542, 458752, 4, 1, 131072, 7, 2, 327680, 7, 5, 65536, 7, 0, 262144, 4, 6, 131072, 7, 65543, 196608, 5, 131079, 196608, 5, 196615, 196608, 5, 262151, 196608, 5, 7, 196608, 4, 131073, 196608, 1, 131074, 196608, 1, 131077, 196608, 1, 131076, 196608, 1, 131075, 196608, 1, 131078, 196608, 1, 196614, 196608, 1, 196613, 196608, 1, 196612, 196608, 1, 196611, 196608, 1, 196610, 196608, 1, 196609, 196608, 1, 262145, 196608, 1, 262146, 196608, 1, 262147, 196608, 1, 262148, 196608, 1, 262149, 196608, 1, 262150, 196608, 1, 327681, 196608, 1, 327682, 196608, 1, 327683, 196608, 1, 327684, 196608, 1, 327685, 196608, 1, 327686, 196608, 1, 327687, 196608, 6, 327680, 262144, 6, 65540, 196608, 1, 65539, 196608, 1)
+layer_2/tile_data = PackedInt32Array(327681, 131072, 6, 327682, 327680, 6, 327685, 65536, 6, 327686, 131072, 6)
+
+[node name="Marker2D" type="Marker2D" parent="Entrance" index="0"]
+position = Vector2(72, 88)
+
+[node name="Marker2D2" type="Marker2D" parent="Entrance" index="1"]
+position = Vector2(56, 88)
+
+[node name="Door" parent="Doors" index="0" instance=ExtResource("2_p4rwl")]
+position = Vector2(64, 16)
+
+[node name="WeaponPos" parent="." index="6"]
+position = Vector2(64, 56)
+
+[node name="CollisionShape2D" parent="PlayerDetector" index="0"]
+position = Vector2(64, 85)
+shape = SubResource("RectangleShape2D_qx0gc")

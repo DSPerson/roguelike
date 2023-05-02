@@ -1,0 +1,9 @@
+res://Scenes/Player/Player.tscn
+res://Scenes/Player/PlayerFSM.gd
+res://Scenes/Weapons/crossbow.gd
+res://addons/imjp94.yafsm/scenes/flowchart/FlowChartLine.tscn
+res://addons/imjp94.yafsm/scenes/flowchart/FlowChartNode.tscn
+res://Scenes/Rooms/room.tscn
+res://Scenes/Rooms/room.gd
+res://Scenes/Rooms.gd
+res://Scenes/Autoloads/PlayerSaveData.gd
