@@ -1,14 +1,14 @@
 extends Node2D
 ## 开始
 const SPAWN_ROOMS: Array[Resource] = [
-#	preload("res://Scenes/Rooms/Level_0/level_0_0_rooms.tscn"),
+	preload("res://Scenes/Rooms/Level_0/level_0_0_rooms.tscn"),
 	preload("res://Scenes/Rooms/Level_0/level_0_1_rooms.tscn")
 ]
 ## 中间
 const INTERMEDIATE_ROOMS: Array = [
 	preload("res://Scenes/Rooms/room_0.tscn"),
-#	preload("res://Scenes/Rooms/room_1.tscn"),
-#	preload("res://Scenes/Rooms/room_2.tscn"),
+	preload("res://Scenes/Rooms/room_1.tscn"),
+	preload("res://Scenes/Rooms/room_2.tscn"),
 ]
 ## 结尾
 const END_ROOMS: Array = [

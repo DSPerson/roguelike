@@ -17,8 +17,6 @@ var can_attack: bool = true
 ## 射线检测墙壁
 @onready var aim_ray_cast = $AimRayCast
 
-@onready var state_machine_player = $StateMachinePlayer
-
 func _ready():
 	super._ready()
 	
@@ -46,7 +44,6 @@ func far_away_from_player():
 
 
 func maybe_attack():
-	state_machine_player
 	aim_ray_cast.target_position = player.position - global_position
 	## 是否可以攻击
 	## 状态为idle

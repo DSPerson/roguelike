@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://lrtvx6xn6rh3"]
+[gd_scene load_steps=31 format=3 uid="uid://lrtvx6xn6rh3"]
 
 [ext_resource type="PackedScene" uid="uid://8kqtrr2s7md4" path="res://Scenes/Enemy/enemy.tscn" id="1_exbqa"]
 [ext_resource type="Texture2D" uid="uid://nlmamqi0wton" path="res://Art/all/effects (new)/enemy_afterdead_explosion_anim_spritesheet.png" id="2_66qe0"]
@@ -6,11 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://wvngbnrg1uew" path="res://Art/all/enemies/goblin/goblin_idle_spritesheet.png" id="2_joe4w"]
 [ext_resource type="Texture2D" uid="uid://bp1vg1j8m6nsw" path="res://Art/all/enemies/goblin/goblin_run_spritesheet.png" id="3_bq2qk"]
 [ext_resource type="Script" path="res://Scenes/Enemy/Goblin/goblinFSM.gd" id="3_t3kv8"]
-[ext_resource type="Script" path="res://Scenes/Enemy/Goblin/GobinSMP.gd" id="7_yswyj"]
-[ext_resource type="Script" path="res://addons/imjp94.yafsm/src/states/StateMachine.gd" id="8_m51a8"]
-[ext_resource type="Script" path="res://addons/imjp94.yafsm/src/states/State.gd" id="9_owde8"]
-[ext_resource type="Script" path="res://addons/imjp94.yafsm/src/transitions/Transition.gd" id="10_7uqml"]
-[ext_resource type="Script" path="res://addons/imjp94.yafsm/src/conditions/Condition.gd" id="11_kqsbu"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5o5kg"]
 atlas = ExtResource("2_66qe0")
@@ -343,74 +338,6 @@ _data = {
 "move": SubResource("Animation_4rlc4")
 }
 
-[sub_resource type="Resource" id="Resource_ot1yr"]
-script = ExtResource("9_owde8")
-name = "Entry"
-metadata/graph_offset = Vector2(230.903, 225.5)
-
-[sub_resource type="Resource" id="Resource_8vqd1"]
-script = ExtResource("9_owde8")
-name = "move"
-metadata/graph_offset = Vector2(818.922, 49.3125)
-
-[sub_resource type="Resource" id="Resource_qcx0y"]
-script = ExtResource("9_owde8")
-name = "idle"
-metadata/graph_offset = Vector2(541.853, 222.125)
-
-[sub_resource type="Resource" id="Resource_wfto4"]
-script = ExtResource("10_7uqml")
-from = "Entry"
-to = "idle"
-conditions = {}
-priority = 0
-
-[sub_resource type="Resource" id="Resource_g5mjp"]
-script = ExtResource("11_kqsbu")
-name = "move"
-
-[sub_resource type="Resource" id="Resource_tmn0t"]
-script = ExtResource("10_7uqml")
-from = "idle"
-to = "move"
-conditions = {
-"move": SubResource("Resource_g5mjp")
-}
-priority = 0
-
-[sub_resource type="Resource" id="Resource_knpak"]
-script = ExtResource("11_kqsbu")
-name = "idle"
-
-[sub_resource type="Resource" id="Resource_mq86d"]
-script = ExtResource("10_7uqml")
-from = "move"
-to = "idle"
-conditions = {
-"idle": SubResource("Resource_knpak")
-}
-priority = 0
-
-[sub_resource type="Resource" id="Resource_40et4"]
-script = ExtResource("8_m51a8")
-states = {
-"Entry": SubResource("Resource_ot1yr"),
-"idle": SubResource("Resource_qcx0y"),
-"move": SubResource("Resource_8vqd1")
-}
-transitions = {
-"Entry": {
-"idle": SubResource("Resource_wfto4")
-},
-"idle": {
-"move": SubResource("Resource_tmn0t")
-},
-"move": {
-"idle": SubResource("Resource_mq86d")
-}
-}
-name = ""
-
 [node name="Goblin" instance=ExtResource("1_exbqa")]
 script = ExtResource("2_gr0ym")
 max_distance_to_player = 80
@@ -454,10 +381,4 @@ wait_time = 0.3
 wait_time = 2.0
 autostart = true
 
-[node name="StateMachinePlayer" type="Node" parent="." index="9"]
-script = ExtResource("7_yswyj")
-state_machine = SubResource("Resource_40et4")
-
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
-[connection signal="entered" from="StateMachinePlayer" to="StateMachinePlayer" method="_globin_on_entered"]
-[connection signal="transited" from="StateMachinePlayer" to="StateMachinePlayer" method="_on_state_machine_player_transited"]
